@@ -21,7 +21,7 @@ version: 2.1
 workflows:
   build_and_push_image:
     jobs:
-      - aws-ecr/build_and_push_react_image:
+      - build_and_push_react_image:
           account-url: AWS_ECR_ACCOUNT_URL_REACT
           aws-access-key-id: ACCESS_KEY_ID_REACT
           aws-secret-access-key: SECRET_ACCESS_KEY_REACT
@@ -39,7 +39,7 @@ workflows:
       - Deployment_React_Approval:
           type: approval
           requires:
-            - aws-ecr/build_and_push_react_image
+            - build_and_push_react_image
           filters:
             branches: 
               only: main
