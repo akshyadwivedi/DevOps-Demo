@@ -9,7 +9,7 @@ orbs:
   node: circleci/node@2.0.2
 
 jobs:
-  Deploy_React_App_On_EC2:
+  Deploy-React-App-On-EC2:
     machine:
       enabled: true
     steps:
@@ -21,7 +21,7 @@ version: 2.1
 workflows:
   build_and_push_image:
     jobs:
-      - build_and_push_react_image:
+      - aws-ecr/build-and-push-react-image:
           account-url: AWS_ECR_ACCOUNT_URL_REACT
           aws-access-key-id: ACCESS_KEY_ID_REACT
           aws-secret-access-key: SECRET_ACCESS_KEY_REACT
@@ -31,22 +31,22 @@ workflows:
           region: AWS_REGION_REACT
           repo: AWS_ECR_REACT_REPO
           skip-when-tags-exist: false
-          tag: latest,$CIRCLE_BUILD_NUM
+          tag: latest,0.1$CIRCLE_BUILD_NUM
           filters:
             branches:
               only: main
           
-      - Deployment_React_Approval:
+      - Deployment-React-Approval:
           type: approval
           requires:
-            - build_and_push_react_image
+            - aws-ecr/build-and-push-react-image
           filters:
             branches: 
               only: main
 
-      - Deploy_React_App_On_EC2:
+      - Deploy-React-App-On-EC2:
           requires:
-            - Deployment_React_Approval
+            - Deployment-React-Approval
           filters:
             branches:
               only: main
