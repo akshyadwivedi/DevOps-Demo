@@ -1,4 +1,4 @@
-FROM node
+FROM node:14
 WORKDIR /demo-react
 COPY . .
 #RUN npm cache clean --force
