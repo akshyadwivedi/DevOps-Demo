@@ -3,17 +3,17 @@ orbs:
   aws-cli: circleci/aws-cli@4.1.3
   node: circleci/node@5.2.0
 
-version: 2.1
-
 jobs:
   Deploy_React_App_On_EC2:
     machine:
-      enalble: true
+      enabled: true
     steps:
       - run: 
           name: SSH_Into_EC2
           command: ssh ubuntu@3.235.164.190 './demo-react-ssh.sh';
-          
+
+version: 2.1
+
 workflow:
   build_and_push_image:
     jobs:
