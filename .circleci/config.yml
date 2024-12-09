@@ -22,10 +22,6 @@ jobs:
       - image: circleci/python:3.9  # or any other base image as per your requirement
     steps:
       - checkout
-      - aws-cli/setup:
-          aws-access-key-id: AWS_ACCESS_KEY_ID_REACT
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY_REACT
-          region: AWS_REGION_REACT
       - aws-ecr/build-and-push-image:
           account-url: AWS_ECR_ACCOUNT_URL_REACT
           aws-access-key-id: AWS_ACCESS_KEY_ID_REACT
