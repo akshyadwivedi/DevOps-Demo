@@ -12,7 +12,7 @@ jobs:
     steps:
       - run: 
           name: SSH_Into_EC2
-          command: ssh ubuntu@3.235.164.190 './demo-react-ssh.sh';
+          command: ssh -i ec2-user@ec2-13-215-206-191.ap-southeast-1.compute.amazonaws.com './demo-react-ssh.sh';
 
 workflows:
   build_and_push_image:
@@ -25,7 +25,7 @@ workflows:
           path: .
           no-output-timeout: 20m
           region: AWS_REGION_REACT
-          repo: $AWS_ECR_REACT_REPO
+          repo: devops-demo
           skip-when-tags-exist: false
           tag: latest,0.1$CIRCLE_BUILD_NUM
           filters:
