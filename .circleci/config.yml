@@ -18,6 +18,9 @@ jobs:
 
   # Build and Push Docker Image to AWS ECR
   build_and_push_image:
+    machine:
+        enabled: true
+
     docker:
       - image: circleci/python:3.9  # or any other base image as per your requirement
     steps:
