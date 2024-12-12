@@ -44,7 +44,7 @@ workflows:
     jobs:
       - build_and_push_image:
           filters:
-            branches:
+            branches: 
               only: main
       - Deployment_React_Approval:
           requires:
