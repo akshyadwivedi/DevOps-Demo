@@ -8,8 +8,8 @@ orbs:
 jobs:
   # Job to deploy the React app to EC2
   Deploy_React_App_On_EC2:
-    machine:
-      enabled: true
+    docker:
+    -image: cimg/node:18.0.0
     steps:
       - run:
           name: SSH into EC2 and Deploy React App
@@ -22,11 +22,12 @@ jobs:
       - image: circleci/python:3.9  # or any other base image as per your requirement
     steps:
       - checkout
+      - setup_remote_docker
       - aws-ecr/build-and-push-image:
           account-url: AWS_ECR_ACCOUNT_URL_REACT
           aws-access-key-id: ACCESS_KEY_ID_REACT
           aws-secret-access-key: SECRET_ACCESS_KEY_REACT
-          dockerfile: Dockerfile
+          dockerfile: Env/Dockerfile
           path: .
           region: AWS_REGION_REACT
           repo: devops-demo
