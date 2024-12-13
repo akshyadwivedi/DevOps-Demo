@@ -22,13 +22,12 @@ jobs:
       - image: cimg/node:18.0.0  # Using node 18 image for Docker build
     steps:
       - checkout
-      - setup_remote_docker:  # Enabling Docker in remote environment
-          version: '20.10.7'  # You can specify a version, if necessary
+      - setup_remote_docker:  # Enabling Docker in remote environment without specifying version
           docker_layer_caching: true  # Optional, speeds up builds by caching layers
       - aws-ecr/build-and-push-image:
           account-url: AWS_ECR_ACCOUNT_URL_DEMOREACT
-          aws-access-key-id: AWS_ACCESS_KEY_ID_DEMOREACT
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY_DEMOREACT
+          aws-access-key-id: ACCESS_KEY_ID_DEMOREACT
+          aws-secret-access-key: SECRET_ACCESS_KEY_DEMOREACT
           dockerfile: Env/Dockerfile
           path: .
           region: AWS_REGION_DEMOREACT
