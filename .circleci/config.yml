@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Build Docker Image
           command: |
-            docker build -t demo-repo:latest -f Env/Dockerfile .
+            docker build -t devops-demo:latest -f Env/Dockerfile .
       - aws-ecr/build-and-push-image:
           account-url: AWS_ECR_ACCOUNT_URL_REACT
           aws-access-key-id: ACCESS_KEY_ID_REACT
@@ -35,7 +35,7 @@ jobs:
           dockerfile: Env/Dockerfile
           path: .
           region: AWS_REGION_REACT
-          repo: demo-repo
+          repo: devops-demo
           tag: latest,0.1$CIRCLE_BUILD_NUM
 
   # Manual approval job for deployment
