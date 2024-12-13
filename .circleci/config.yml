@@ -1,10 +1,10 @@
-version: 2.1                    
-       
-orbs: 
+version: 2.1     
+ 
+orbs:
   aws-ecr: circleci/aws-ecr@7.0.0
-  aws-cli: circleci/aws-cli@2.0.0              
+  aws-cli: circleci/aws-cli@2.0.0
   node: circleci/node@2.0.2
-
+ 
 jobs:
   # Job to deploy the React app to EC2
   Deploy_React_App_On_EC2:
@@ -14,13 +14,10 @@ jobs:
       - run:
           name: SSH into EC2 and Deploy React App
           command: |
-            ssh -i private_key.pem ec2-user@ec2-13-215-206-191.ap-southeast-1.compute.amazonaws.com './deploy.sh'
-
+            ssh -i private_key.pem ec2-user@ec2-13-215-206-191.ap-southeast-1.compute.amazonaws.com 'bash ./deploy.sh'
+ 
   # Build and Push Docker Image to AWS ECR
   build_and_push_image:
-    machine:
-        enabled: true
-
     docker:
       - image: circleci/python:3.9  # or any other base image as per your requirement
     steps:
@@ -29,18 +26,18 @@ jobs:
           account-url: AWS_ECR_ACCOUNT_URL_REACT
           aws-access-key-id: ACCESS_KEY_ID_REACT
           aws-secret-access-key: SECRET_ACCESS_KEY_REACT
-          dockerfile: Dockerfile
+          dockerfile: Env/DockerFile
           path: .
           region: AWS_REGION_REACT
           repo: devops-demo
           tag: latest,0.1$CIRCLE_BUILD_NUM
-
+ 
   # Manual approval job for deployment
   Deployment_React_Approval:
     type: approval
     requires:
       - build_and_push_image
-
+ 
 workflows:
   version: 2
   build_and_push_image:
@@ -61,3 +58,4 @@ workflows:
           filters:
             branches:
               only: main
+ 
